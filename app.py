@@ -12,12 +12,12 @@ import db
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-me")
 
-# create the table on startup (works with gunicorn too)
+
 db.init_db()
 
 EMAIL_REGEX = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
-# navbar + home page options, loop over this in your templates
+
 NAV_LINKS = [
     ("Home", "home"),
     ("About", "about"),
@@ -69,7 +69,7 @@ def newsletter():
 
         if error:
             flash(error, "error")
-            # re-render so the user doesn't lose what they typed
+            
             return render_template(
                 "newsletter.html", name=name, email=email, moment=moment
             ), 400
@@ -86,13 +86,13 @@ def newsletter():
     return render_template("newsletter.html")
 
 
-# small API route
+
 @app.route("/api/subscribers")
 def api_subscribers():
     return jsonify({"subscribers": db.count_subscribers()})
 
 
-# optional: view saved data (protect with a key so it's not public)
+
 @app.route("/admin/subscribers")
 def admin_subscribers():
     if request.args.get("key") != os.environ.get("ADMIN_KEY", "haaland123"):
