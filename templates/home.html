@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block bg %}home.jpg{% endblock %}
+
+{% block content %}
+<section class="text-center space-y-6 py-10 sm:py-16">
+  <p class="inline-block px-4 py-1.5 bg-sky-950/80 border border-sky-400/40 rounded-full text-xs font-bold text-sky-300 backdrop-blur-md">
+    Man City #9 | Norway #9
+  </p>
+  <h1 class="text-5xl sm:text-7xl md:text-8xl font-black uppercase tracking-tight leading-none drop-shadow-2xl">
+    Erling<br /><span class="text-sky-400">Haaland</span>
+  </h1>
+  <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+    Goals, pace and power. A fan-made home for everything about the striker from Bryne.
+  </p>
+</section>
+
+<section class="grid gap-4 sm:grid-cols-3 pb-10" aria-label="Explore the site">
+  <a href="{{ url_for('about') }}" class="group p-6 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-sky-400 backdrop-blur-md transition">
+    <h2 class="text-xl font-black text-white group-hover:text-sky-300">About</h2>
+    <p class="mt-2 text-sm text-slate-400">His journey from Leeds to Manchester City, and the records along the way.</p>
+  </a>
+  <a href="{{ url_for('socials') }}" class="group p-6 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-sky-400 backdrop-blur-md transition">
+    <h2 class="text-xl font-black text-white group-hover:text-sky-300">Socials</h2>
+    <p class="mt-2 text-sm text-slate-400">Follow him on Instagram, X, YouTube and Facebook.</p>
+  </a>
+  <a href="{{ url_for('newsletter') }}" class="group p-6 rounded-3xl bg-sky-500 hover:bg-sky-400 transition shadow-lg shadow-sky-500/20">
+    <h2 class="text-xl font-black text-slate-950">Newsletter</h2>
+    <p class="mt-2 text-sm text-slate-900">Join {{ subscriber_count }} fan{{ '' if subscriber_count == 1 else 's' }} getting match alerts and goal breakdowns.</p>
+  </a>
+</section>
+{% endblock %}

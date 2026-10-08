@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Socials{% endblock %}
+{% block bg %}newsletter.jpg{% endblock %}
+
+{% block content %}
+<section class="text-center space-y-3 py-8">
+  <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight">Follow <span class="text-sky-400">Haaland</span></h1>
+  <p class="text-slate-300 text-sm sm:text-base">Links open his accounts in a new tab.</p>
+</section>
+
+{% set socials = [
+  ("Instagram", "@erling.haaland", "https://www.instagram.com/erling.haaland/", "Training, family and match-day photos."),
+  ("X", "@ErlingHaaland", "https://x.com/ErlingHaaland", "Short updates and reactions."),
+  ("YouTube", "Search Erling Haaland", "https://www.youtube.com/results?search_query=Erling+Haaland", "Goals, highlights and interviews."),
+  ("Facebook", "Erling Haaland", "https://www.facebook.com/erling.haaland", "Posts and news from the page."),
+] %}
+
+<section class="grid gap-4 sm:grid-cols-2 pb-10" aria-label="Social media links">
+  {% for name, handle, url, blurb in socials %}
+  <a href="{{ url }}" target="_blank" rel="noopener noreferrer"
+     class="group p-6 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-sky-400 backdrop-blur-md transition">
+    <h2 class="text-xl font-black group-hover:text-sky-300">{{ name }}</h2>
+    <p class="text-sky-400 text-sm font-bold mt-1">{{ handle }}</p>
+    <p class="text-slate-400 text-sm mt-2">{{ blurb }}</p>
+  </a>
+  {% endfor %}
+</section>
+
+<div class="text-center pb-8">
+  <p class="text-slate-300 text-sm mb-3">Want it all in your inbox instead?</p>
+  <a href="{{ url_for('newsletter') }}" class="inline-block px-6 py-3 bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-sm rounded-xl transition">Join the newsletter</a>
+</div>
+{% endblock %}

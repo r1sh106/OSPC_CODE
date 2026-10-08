@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Erling Haaland{% endblock %} | Unofficial Fan Site</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+
+  <!-- Page background (each page sets its own image) -->
+  <div class="fixed inset-0 z-0">
+    <img src="{{ url_for('static', filename=self.bg()) }}" alt="" class="w-full h-full object-cover object-top brightness-[.35]" />
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/80"></div>
+  </div>
+
+  <!-- Shared navbar -->
+  <header class="relative z-20 w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between gap-4">
+    <a href="{{ url_for('home') }}" class="text-xl sm:text-2xl font-black tracking-wider text-sky-400">HAALAND<span class="text-white">.9</span></a>
+    <nav class="flex items-center gap-2 sm:gap-3" aria-label="Main">
+      {% for label, endpoint in nav_links if endpoint != 'home' %}
+        {% set active = request.endpoint == endpoint %}
+        <a href="{{ url_for(endpoint) }}"
+           class="px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border transition backdrop-blur-md
+           {% if endpoint == 'newsletter' %}bg-sky-500 hover:bg-sky-400 text-slate-950 border-sky-500
+           {% elif active %}bg-slate-800 border-sky-400 text-sky-300
+           {% else %}bg-slate-900/80 hover:bg-slate-800 border-slate-700 text-slate-200{% endif %}">
+          {{ label }}
+        </a>
+      {% endfor %}
+    </nav>
+  </header>
+
+  <!-- Flash messages (work on any page) -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="relative z-20 max-w-xl w-full mx-auto px-6 space-y-2">
+        {% for category, message in messages %}
+          <div role="alert" class="p-4 rounded-2xl text-sm font-bold text-center border backdrop-blur-md
+            {% if category == 'success' %}bg-emerald-500/20 border-emerald-500/50 text-emerald-300{% else %}bg-rose-500/20 border-rose-500/50 text-rose-300{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main class="relative z-10 flex-1 w-full max-w-5xl mx-auto px-6 py-10">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="relative z-10 text-center text-xs text-slate-400 pb-6 px-6">
+    Unofficial fan website. Not affiliated with Erling Haaland or Manchester City.
+  </footer>
+</body>
+</html>
